@@ -1,1 +1,1 @@
-[![Banner](./Banner.png)](https://ryangchung.github.io/)
+[![Banner](./Banner.png)](https://www.linkedin.com/in/ryanckc/)
