@@ -21,3 +21,7 @@ export ZSH="$HOME/.oh-my-zsh"
 export EDITOR=nvim
 export PATH="$HOME/.local/bin:$PATH"
 
+bindkey "^[[1;3C" forward-word
+bindkey "^[[1;3D" backward-word
+bindkey "^[[1;9C" end-of-line
+bindkey "^[[1;9D" beginning-of-line
