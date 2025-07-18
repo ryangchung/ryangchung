@@ -71,6 +71,12 @@
         bold_font = "Iosevka Bold";
         italic_font = "Iosevka Italic";
         bold_italic_font = "Iosevka Bold Italic";
+
+        cursor_trail = 10;
+        cursor_trail_start_threshold = 0;
+        cursor_trail_decay = "0.01 0.05";
+        cursor_shape = "block";
+        cursor_blink = true;
       };
     };
     zed-editor = {
