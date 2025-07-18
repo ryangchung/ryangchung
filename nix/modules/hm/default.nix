@@ -28,9 +28,13 @@
       fd
       wget
       aerospace
-      lua
-      luarocks
+      # NEOVIM UNDER!
       neovim
+      ripgrep
+      lua5_1
+      luarocks
+      lua-language-server
+      stylua
     ];
   };
 
