@@ -13,11 +13,11 @@ else
 fi
 
 # 2. Symlink nvim config
-# echo "Deleting current Neovim config..."
-# rm -rf ~/.config/nvim
-# echo "Linking new Neovim config..."
-# ln -sfn /Users/ryan/ryangchung/nvim "$HOME/.config/nvim"
-# echo "Linked ~/.config/nvim -> /Users/ryan/ryangchung/nvim"
+echo "Deleting current Neovim config..."
+rm -rf ~/.config/nvim
+echo "Linking new Neovim config..."
+ln -sfn /Users/ryan/ryangchung/nvim "$HOME/.config/nvim"
+echo "Linked ~/.config/nvim -> /Users/ryan/ryangchung/nvim"
 
 # 2. Symlink .zshrc config
 echo "Deleting current .zshrc..."
