@@ -63,8 +63,6 @@
         oh-my-zsh = {
             enable = true;
             plugins = ["git" "brew"];
-            theme = "powerlevel10k/powerlevel10k";
-            custom = "${pkgs.zsh-powerlevel10k}/share/zsh-powerlevel10k";
         };
         shellAliases = {
             vi = "nvim";
@@ -78,12 +76,17 @@
             "sudo-nix-build" = "~/ryangchung/install.sh";
         };
         initContent = ''
+            # >>> Powerlevel10k instant prompt (must be first) >>>
+            if [[ -r "$XDG_CACHE_HOME/p10k-instant-prompt-''${(%):-%n}.zsh" ]]; then
+                source "$XDG_CACHE_HOME/p10k-instant-prompt-''${(%):-%n}.zsh"
+            fi
             eval "$(zoxide init zsh)"
             bindkey "^[[1;3C" forward-word
             bindkey "^[[1;3D" backward-word
             bindkey "^[[1;9C" end-of-line
             bindkey "^[[1;9D" beginning-of-line
-            source ~/.p10k.zsh
+            source ${pkgs.zsh-powerlevel10k}/share/zsh-powerlevel10k/powerlevel10k.zsh-theme
+            [[ -f ~/.p10k.zsh ]] && source ~/.p10k.zsh
         '';
     };
     zoxide = {
