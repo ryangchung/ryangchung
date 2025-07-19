@@ -1,11 +1,10 @@
-{
-  inputs,
-  config,
-  lib,
-  pkgs,
-  ...
+{ inputs
+, config
+, lib
+, pkgs
+, ...
 }: {
-  imports = [];
+  imports = [ ];
 
   home = {
     stateVersion = "25.05";
@@ -26,7 +25,7 @@
       docker
       fd
       wget
-      aerospace
+      nixpkgs-fmt
       # NEOVIM UNDER!
       neovim
       ripgrep
@@ -36,12 +35,11 @@
       stylua
     ];
     file = {
-        ".aerospace.toml".source = ../../../aerospace/.aerospace.toml;
-        ".config/nvim".source = ../../../nvim;
-        ".p10k.zsh".source = ../../../p10k/.p10k.zsh;
+      ".config/nvim".source = ../../../nvim;
+      ".p10k.zsh".source = ../../../p10k/.p10k.zsh;
     };
     sessionVariables = {
-        EDITOR = "nvim";
+      EDITOR = "nvim";
     };
   };
 
@@ -52,47 +50,116 @@
   };
 
   services = {
-    home-manager = {};
+    home-manager = { };
   };
 
   programs = {
     home-manager.enable = true;
     zsh = {
+      enable = true;
+      autosuggestion.enable = true;
+      syntaxHighlighting.enable = true;
+      oh-my-zsh = {
         enable = true;
-        autosuggestion.enable = true;
-        syntaxHighlighting.enable = true;
-        oh-my-zsh = {
-            enable = true;
-            plugins = ["git" "brew"];
+        plugins = [ "git" "brew" ];
+      };
+      shellAliases = {
+        vi = "nvim";
+        vim = "nvim";
+        EDITOR = "nvim";
+        PATH = "$HOME/.local/bin";
+        cd = "z";
+        find = "fzf";
+        lsa = "ls -1a";
+        ccat = "highlight -O ansi --force";
+        "sudo-nix-build" = "~/ryangchung/install.sh";
+      };
+      initContent = ''
+        # >>> Powerlevel10k instant prompt (must be first) >>>
+        if [[ -r "$XDG_CACHE_HOME/p10k-instant-prompt-''${(%):-%n}.zsh" ]]; then
+            source "$XDG_CACHE_HOME/p10k-instant-prompt-''${(%):-%n}.zsh"
+        fi
+        eval "$(zoxide init zsh)"
+        bindkey "^[[1;3C" forward-word
+        bindkey "^[[1;3D" backward-word
+        bindkey "^[[1;9C" end-of-line
+        bindkey "^[[1;9D" beginning-of-line
+        source ${pkgs.zsh-powerlevel10k}/share/zsh-powerlevel10k/powerlevel10k.zsh-theme
+        [[ -f ~/.p10k.zsh ]] && source ~/.p10k.zsh
+      '';
+    };
+    aerospace = {
+      enable = true;
+      userSettings = {
+        start-at-login = true;
+        gaps = {
+          inner = {
+            horizontal = 4;
+            vertical = 4;
+          };
+          outer = {
+            left = 4;
+            bottom = 4;
+            top = 4;
+            right = 4;
+          };
         };
-        shellAliases = {
-            vi = "nvim";
-            vim = "nvim";
-            EDITOR = "nvim";
-            PATH = "$HOME/.local/bin";
-            cd = "z";
-            find = "fzf";
-            lsa = "ls -1a";
-            ccat = "highlight -O ansi --force";
-            "sudo-nix-build" = "~/ryangchung/install.sh";
+        mode.main.binding = {
+          alt-tab = "workspace-back-and-forth";
+
+          # Layout commands
+          alt-slash = "layout tiles horizontal vertical";
+          alt-comma = "layout accordion horizontal vertical";
+
+          # Focus commands
+          alt-h = "focus left";
+          alt-j = "focus down";
+          alt-k = "focus up";
+          alt-l = "focus right";
+
+          # Move commands
+          alt-shift-h = "move left";
+          alt-shift-j = "move down";
+          alt-shift-k = "move up";
+          alt-shift-l = "move right";
+
+          # Resize commands
+          alt-minus = "resize smart -50";
+          alt-equal = "resize smart +50";
+
+          # Workspace switching
+          cmd-1 = "workspace 1";
+          cmd-2 = "workspace 2";
+          cmd-3 = "workspace 3";
+          cmd-4 = "workspace 4";
+          cmd-5 = "workspace 5";
+          cmd-6 = "workspace 6";
+          cmd-7 = "workspace 7";
+          cmd-8 = "workspace 8";
+          cmd-9 = "workspace 9";
+
+          # Move node to workspace
+          cmd-alt-1 = "move-node-to-workspace 1";
+          cmd-alt-2 = "move-node-to-workspace 2";
+          cmd-alt-3 = "move-node-to-workspace 3";
+          cmd-alt-4 = "move-node-to-workspace 4";
+          cmd-alt-5 = "move-node-to-workspace 5";
+          cmd-alt-6 = "move-node-to-workspace 6";
+          cmd-alt-7 = "move-node-to-workspace 7";
+          cmd-alt-8 = "move-node-to-workspace 8";
+          cmd-alt-9 = "move-node-to-workspace 9";
+
+          # Move workspace to monitor
+          cmd-alt-tab = "move-workspace-to-monitor --wrap-around next";
+
+          # Mode switching
+          alt-shift-semicolon = "mode service";
         };
-        initContent = ''
-            # >>> Powerlevel10k instant prompt (must be first) >>>
-            if [[ -r "$XDG_CACHE_HOME/p10k-instant-prompt-''${(%):-%n}.zsh" ]]; then
-                source "$XDG_CACHE_HOME/p10k-instant-prompt-''${(%):-%n}.zsh"
-            fi
-            eval "$(zoxide init zsh)"
-            bindkey "^[[1;3C" forward-word
-            bindkey "^[[1;3D" backward-word
-            bindkey "^[[1;9C" end-of-line
-            bindkey "^[[1;9D" beginning-of-line
-            source ${pkgs.zsh-powerlevel10k}/share/zsh-powerlevel10k/powerlevel10k.zsh-theme
-            [[ -f ~/.p10k.zsh ]] && source ~/.p10k.zsh
-        '';
+      };
     };
     zoxide = {
-        enable = true;
-        enableZshIntegration = true;
+      enable = true;
+      enableZshIntegration = true;
     };
     fzf = {
       enable = true;
@@ -186,7 +253,7 @@
           "default_profile" = "ask";
           "always_allow_tool_actions" = true;
           "dock" = "right";
-          "model_parameters" = [];
+          "model_parameters" = [ ];
           "default_model" = {
             "provider" = "copilot_chat";
             "model" = "claude-sonnet-4";

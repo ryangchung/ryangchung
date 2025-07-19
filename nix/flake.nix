@@ -20,29 +20,30 @@
     };
   };
 
-  outputs = inputs @ {
-    self,
-    nix-darwin,
-    nixpkgs,
-    lix-module,
-    home-manager,
-  }: {
-    darwinConfigurations."Ryans-MacBook-Pro" = nix-darwin.lib.darwinSystem {
-      modules = [
-        lix-module.nixosModules.default
-        ./configuration.nix
-        home-manager.darwinModules.home-manager
-        {
-          home-manager = {
-            useGlobalPkgs = true;
-            useUserPackages = true;
-            extraSpecialArgs = {inherit inputs;};
-            users.ryan = import ./modules/hm;
-          };
-        }
-      ];
-    };
+  outputs =
+    inputs @ { self
+    , nix-darwin
+    , nixpkgs
+    , lix-module
+    , home-manager
+    ,
+    }: {
+      darwinConfigurations."Ryans-MacBook-Pro" = nix-darwin.lib.darwinSystem {
+        modules = [
+          lix-module.nixosModules.default
+          ./configuration.nix
+          home-manager.darwinModules.home-manager
+          {
+            home-manager = {
+              useGlobalPkgs = true;
+              useUserPackages = true;
+              extraSpecialArgs = { inherit inputs; };
+              users.ryan = import ./modules/hm;
+            };
+          }
+        ];
+      };
 
-    darwinPackages = self.darwinConfigurations."ryan".pkgs;
-  };
+      darwinPackages = self.darwinConfigurations."ryan".pkgs;
+    };
 }
