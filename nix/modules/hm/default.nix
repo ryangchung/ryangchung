@@ -16,7 +16,6 @@
       zsh-powerlevel10k
       ollama
       obsidian
-      zoxide
       highlight
       gh
       zellij
@@ -36,6 +35,10 @@
       lua-language-server
       stylua
     ];
+
+    sessionVariables = {
+        EDITOR = "nvim";
+    };
   };
 
   manual = {
@@ -50,6 +53,38 @@
 
   programs = {
     home-manager.enable = true;
+    zsh = {
+        enable = true;
+        autosuggestion.enable = true;
+        syntaxHighlighting.enable = true;
+        oh-my-zsh = {
+            enable = true;
+            plugins = ["git" "brew"];
+            theme = "powerlevel10k/powerlevel10k";
+            custom = "${pkgs.zsh-powerlevel10k}/share/zsh-powerlevel10k";
+        };
+        shellAliases = {
+            vi = "nvim";
+            vim = "nvim";
+            cd = "z";
+            find = "fzf";
+            lsa = "ls -1a";
+            ccat = "highlight -0 ansi --force";
+            "sudo-nix-build" = "~/ryangchung/install.sh";
+        };
+        initContent = ''
+            eval "$(zoxide init zsh)"
+            bindkey "^[[1;3C" forward-word
+            bindkey "^[[1;3D" backward-word
+            bindkey "^[[1;9C" end-of-line
+            bindkey "^[[1;9D" beginning-of-line
+            source ~/.p10k.zsh
+        '';
+    };
+    zoxide = {
+        enable = true;
+        enableZshIntegration = true;
+    };
     fzf = {
       enable = true;
       enableBashIntegration = true;
