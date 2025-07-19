@@ -37,7 +37,7 @@
     ];
     file = {
         ".aerospace.toml".source = ../../../aerospace/.aerospace.toml;
-        "~/.config.nvim".source = ../../../nvim;
+        ".config/nvim".source = ../../../nvim;
         ".p10k.zsh".source = ../../../p10k/.p10k.zsh;
     };
     sessionVariables = {
