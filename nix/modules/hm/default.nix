@@ -36,6 +36,10 @@
       stylua
     ];
 
+    file = {
+       ".aerospace.toml".source = ../../../aerospace/.aerospace.toml;
+       "~/.config.nvim".source = ../../../nvim;
+    };
     sessionVariables = {
         EDITOR = "nvim";
     };
