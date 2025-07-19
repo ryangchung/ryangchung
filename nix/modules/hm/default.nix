@@ -35,10 +35,9 @@
       lua-language-server
       stylua
     ];
-
     file = {
-       ".aerospace.toml".source = ../../../aerospace/.aerospace.toml;
-       "~/.config.nvim".source = ../../../nvim;
+        ".aerospace.toml".source = ../../../aerospace/.aerospace.toml;
+        "~/.config.nvim".source = ../../../nvim;
     };
     sessionVariables = {
         EDITOR = "nvim";
@@ -70,10 +69,12 @@
         shellAliases = {
             vi = "nvim";
             vim = "nvim";
+            EDITOR = "nvim";
+            PATH = "$HOME/.local/bin";
             cd = "z";
             find = "fzf";
             lsa = "ls -1a";
-            ccat = "highlight -0 ansi --force";
+            ccat = "highlight -O ansi --force";
             "sudo-nix-build" = "~/ryangchung/install.sh";
         };
         initContent = ''
