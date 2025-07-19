@@ -53,3 +53,10 @@ vim.api.nvim_create_autocmd("BufWritePost", {
 	pattern = "*.lua",
 	command = "silent !stylua %",
 })
+
+local NixFmt = vim.api.nvim_create_augroup("NixFmt", { clear = true })
+vim.api.nvim_create_autocmd("BufWritePost", {
+	group = NixFmt,
+	pattern = "*.nix",
+	command = "silent !nixpkgs-fmt %",
+})
