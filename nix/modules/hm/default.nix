@@ -26,6 +26,7 @@
       fd
       wget
       nixpkgs-fmt
+      inputs.nix-darwin.packages.aarch64-darwin.darwin-rebuild
       # NEOVIM UNDER!
       neovim
       ripgrep
@@ -66,8 +67,6 @@
       shellAliases = {
         vi = "nvim";
         vim = "nvim";
-        EDITOR = "nvim";
-        PATH = "$HOME/.local/bin";
         cd = "z";
         find = "fzf";
         lsa = "ls -1a";

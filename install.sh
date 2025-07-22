@@ -13,4 +13,4 @@ else
 fi
 
 # 2. Build nix flake using nix-darwin
-sudo nix --extra-experimental-features nix-command --extra-experimental-features flakes run nix-darwin/master#darwin-rebuild -- switch --flake ~/ryangchung/nix
+sudo darwin-rebuild switch --flake ~/ryangchung/nix
