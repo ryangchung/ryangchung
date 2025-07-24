@@ -27,6 +27,7 @@
       wget
       nixpkgs-fmt
       inputs.nix-darwin.packages.aarch64-darwin.darwin-rebuild
+      emacs
       # NEOVIM UNDER!
       neovim
       ripgrep
@@ -36,8 +37,15 @@
       stylua
     ];
     file = {
-      ".config/nvim".source = ../../../nvim;
+      ".config/nvim" = {
+        source = ../../../nvim;
+        recursive = true;
+      };
       ".p10k.zsh".source = ../../../p10k/.p10k.zsh;
+      ".config/doom" = {
+        source = ../../../doom;
+        recursive = true;
+      };
     };
     sessionVariables = {
       EDITOR = "nvim";
@@ -72,12 +80,14 @@
         lsa = "ls -1a";
         ccat = "highlight -O ansi --force";
         "sudo-nix-build" = "~/ryangchung/install.sh";
+        emacs = "emacs -nw";
       };
       initContent = ''
         # >>> Powerlevel10k instant prompt (must be first) >>>
         if [[ -r "$XDG_CACHE_HOME/p10k-instant-prompt-''${(%):-%n}.zsh" ]]; then
             source "$XDG_CACHE_HOME/p10k-instant-prompt-''${(%):-%n}.zsh"
         fi
+
         eval "$(zoxide init zsh)"
         bindkey "^[[1;3C" forward-word
         bindkey "^[[1;3D" backward-word
