@@ -224,6 +224,7 @@
         }
       ];
       userSettings = {
+        vim_mode = true;
         "autosave" = "on_focus_change";
         "restore_on_startup" = "last_workspace";
         "base_keymap" = "VSCode";
