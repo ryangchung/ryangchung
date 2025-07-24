@@ -50,6 +50,9 @@
     sessionVariables = {
       EDITOR = "nvim";
     };
+    sessionPath = [
+      "${config.home.homeDirectory}/.emacs.d/bin"
+    ];
   };
 
   manual = {
