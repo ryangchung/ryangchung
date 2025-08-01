@@ -15,7 +15,6 @@
       zsh-powerlevel10k
       ollama
       obsidian
-      highlight
       gh
       zellij
       yazi
@@ -27,7 +26,9 @@
       wget
       nixpkgs-fmt
       inputs.nix-darwin.packages.aarch64-darwin.darwin-rebuild
+      bat
       emacs
+      firefox
       # NEOVIM UNDER!
       neovim
       ripgrep
@@ -81,7 +82,8 @@
         cd = "z";
         find = "fzf";
         lsa = "ls -1a";
-        ccat = "highlight -O ansi --force";
+        cat = "bat";
+        ccat = "bat --plain";
         "sudo-nix-build" = "~/ryangchung/install.sh";
         emacs = "emacs -nw";
       };
