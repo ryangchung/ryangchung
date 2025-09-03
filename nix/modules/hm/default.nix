@@ -4,56 +4,35 @@
 , pkgs
 , ...
 }: {
-  imports = [ ];
-
   home = {
     stateVersion = "25.05";
     username = "ryan";
     packages = with pkgs; [
       devenv
       nix-inspect
-      zsh-powerlevel10k
-      ollama
-      obsidian
-      gh
-      zellij
-      yazi
       ttyd
-      lazydocker
-      lazygit
       docker
-      fd
       wget
       nixpkgs-fmt
-      inputs.nix-darwin.packages.aarch64-darwin.darwin-rebuild
-      bat
-      emacs
-      firefox
-      # NEOVIM UNDER!
-      neovim
-      ripgrep
       lua5_1
-      luarocks
-      lua-language-server
+      # luarocks
+      # lua-language-server
       stylua
     ];
     file = {
-      ".config/nvim" = {
-        source = ../../../nvim;
-        recursive = true;
-      };
+#      ".config/nvim" = {
+#        source = ../../../nvim;
+#        recursive = true;
+#      };
       ".p10k.zsh".source = ../../../p10k/.p10k.zsh;
-      ".config/doom" = {
-        source = ../../../doom;
-        recursive = true;
-      };
+      #".config/doom" = {
+      #  source = ../../../doom;
+      #  recursive = true;
+      #};
     };
-    sessionVariables = {
-      EDITOR = "nvim";
-    };
-    sessionPath = [
-      "${config.home.homeDirectory}/.emacs.d/bin"
-    ];
+    #sessionPath = [
+    #  "${config.home.homeDirectory}/.emacs.d/bin"
+    #];
   };
 
   manual = {
@@ -63,22 +42,72 @@
   };
 
   services = {
-    home-manager = { };
+    home-manager = {
+     autoExpire = {
+       enable = true;
+       frequency = "daily";
+     };
+    };
+    ollama.enable = true;
   };
 
   programs = {
+    fd.enable = true;
     home-manager.enable = true;
+    lazydocker.enable = true;
+    lazygit.enable = true;
+    zellij.enable = true;
+    gh.enable = true;
+    #emacs = {
+    #  enable = true;
+    #};
+    neovim = {
+      enable = true;
+      defaultEditor = true;
+      withNodeJs = true;
+      withPython3 = true;
+      withRuby = true;
+      vimAlias = true;
+      viAlias = true;
+    };
+    bat = {
+      enable = true;
+    };
+    ripgrep.enable = true;
+    direnv = {
+      enable = true;
+      silent = true;
+      nix-direnv.enable = true;
+      enableZshIntegration = true;
+      enableBashIntegration = true;
+    };
+    obsidian = {
+      enable = true;
+    };
+    yazi = {
+      enable = true;
+    };
     zsh = {
       enable = true;
       autosuggestion.enable = true;
       syntaxHighlighting.enable = true;
+      plugins = [
+        {
+          name = "powerlevel10k";
+          src = pkgs.zsh-powerlevel10k;
+          file = "share/zsh-powerlevel10k/powerlevel10k.zsh-theme";
+        }
+        {
+          name = "powerlevel10k-config";
+          src = lib.cleanSource ./.;
+          file = "./p10k/.p10k.zsh";
+        }
+      ];
       oh-my-zsh = {
         enable = true;
         plugins = [ "git" "brew" ];
       };
       shellAliases = {
-        vi = "nvim";
-        vim = "nvim";
         cd = "z";
         find = "fzf";
         lsa = "ls -1a";
@@ -88,18 +117,11 @@
         emacs = "emacs -nw";
       };
       initContent = ''
-        # >>> Powerlevel10k instant prompt (must be first) >>>
-        if [[ -r "$XDG_CACHE_HOME/p10k-instant-prompt-''${(%):-%n}.zsh" ]]; then
-            source "$XDG_CACHE_HOME/p10k-instant-prompt-''${(%):-%n}.zsh"
-        fi
-
         eval "$(zoxide init zsh)"
         bindkey "^[[1;3C" forward-word
         bindkey "^[[1;3D" backward-word
         bindkey "^[[1;9C" end-of-line
         bindkey "^[[1;9D" beginning-of-line
-        source ${pkgs.zsh-powerlevel10k}/share/zsh-powerlevel10k/powerlevel10k.zsh-theme
-        [[ -f ~/.p10k.zsh ]] && source ~/.p10k.zsh
       '';
     };
     aerospace = {

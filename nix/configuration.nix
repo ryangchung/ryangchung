@@ -28,16 +28,16 @@
   };
 
   nix = {
-    settings = {
-      trusted-users = [
-        "root"
-        "ryan"
-      ];
-      experimental-features = [
-        "nix-command"
-        "flakes"
-      ];
-    };
+   settings = {
+     trusted-users = [
+       "root"
+       "ryan"
+     ];
+     experimental-features = [
+       "nix-command"
+       "flakes"
+     ];
+   };
   };
 
   system = {
@@ -54,7 +54,7 @@
   };
 
   nixpkgs = {
-    hostPlatform = "aarch64-darwin";
+   hostPlatform = "aarch64-darwin";
     config = {
       allowUnfree = true;
     };
