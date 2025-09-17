@@ -1,0 +1,19 @@
+{
+  # /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+  homebrew = {
+    enable = true;
+    onActivation = {
+      autoUpdate = true;
+      upgrade = true;
+      extraFlags = [
+        "--verbose"
+      ];
+    };
+    casks = [
+      "arc"
+      "raycast"
+      "vivaldi"
+    ];
+    # brews = [];
+  };
+}
