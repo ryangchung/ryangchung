@@ -119,12 +119,13 @@
         autohide-delay = 0.0;
         autohide-time-modifier = 1.0;
         expose-animation-duration = 0.0;
+        show-recents = false;
 
         appswitcher-all-displays = false;
 
         persistent-apps = [
-          # { app = "/Applications/Arc.app"; }
           { app = "Applications/Safari.app"; }
+          { app = "Applications/Spotify.app"; }
         ];
       };
     };
