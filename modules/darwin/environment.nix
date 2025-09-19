@@ -3,6 +3,7 @@
   environment = {
     systemPackages = with pkgs; [
       macmon
+      devenv
       # spotify
     ];
 
