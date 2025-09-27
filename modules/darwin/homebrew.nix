@@ -13,7 +13,6 @@
       "arc"
       "raycast"
       "vivaldi"
-      "gather"
     ];
     # brews = [];
   };
