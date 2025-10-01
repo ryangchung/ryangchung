@@ -48,6 +48,7 @@ programs.aerospace = {
           cmd-7 = "workspace 7";
           cmd-8 = "workspace 8";
           cmd-9 = "workspace 9";
+          cmd-0 = "workspace 10";
 
           # Move node to workspace
           cmd-alt-1 = "move-node-to-workspace 1";
@@ -59,12 +60,26 @@ programs.aerospace = {
           cmd-alt-7 = "move-node-to-workspace 7";
           cmd-alt-8 = "move-node-to-workspace 8";
           cmd-alt-9 = "move-node-to-workspace 9";
+          cmd-alt-0 = "move-node-to-workspace 10";
 
           # Move workspace to monitor
           cmd-alt-tab = "move-workspace-to-monitor --wrap-around next";
 
           # Mode switching
           alt-shift-semicolon = "mode service";
+        };
+
+        "workspace-to-monitor-force-assignment" = {
+            "1" = "main";
+            "2" = "main";
+            "3" = "main";
+            "4" = "main";
+            "5" = "main";
+            "6" = "main";
+            "7" = "main";
+            "8" = "main";
+            "9" = "main";
+            "10" = "secondary";
         };
       };
     };
