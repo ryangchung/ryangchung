@@ -4,8 +4,11 @@
     enable = true;
     autocd = false;
     enableCompletion = true;
-    shellAliases.mkdir = "mkdir -p";
-    shellAliases.coderabbit = "~/.local/bin/coderabbit";  # Relies on installing https://www.coderabbit.ai/cli
+
+    shellAliases = {
+      mkdir = "mkdir -p";
+      coderabbit = "~/.local/bin/coderabbit";  # Relies on installing https://www.coderabbit.ai/cli
+    };
 
     history = {
       size = 10000;

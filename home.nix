@@ -113,7 +113,6 @@
         lsa = "ls -1a";
         cat = "bat";
         ccat = "bat --plain";
-        "sudo-nix-build" = "~/ryangchung/install.sh";
         emacs = "emacs -nw";
       };
       initContent = ''
