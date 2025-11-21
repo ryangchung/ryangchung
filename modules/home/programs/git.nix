@@ -7,14 +7,16 @@
     enable = true;
     lfs.enable = false;
     maintenance.enable = false;
-    userName = "Ryan Chung";
-    userEmail = "ryan.chung.cs@gmail.com";
+    settings.user = {
+      email = "ryan.chung.cs@gmail.com";
+      name = "Ryan Chung";
+    };
 
     # aliases = {
     #   ga = "git add .";
     # };
 
-    extraConfig = {
+    settings = {
       pull.rebase = false;
       init.defaultBranch = "main";
     };

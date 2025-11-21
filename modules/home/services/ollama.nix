@@ -1,6 +1,6 @@
 {
   services.ollama = {
-    enable = true;
+    enable = false;
     # port = 11434;
     # host = "127.0.0.1";
     # environmentVariables = { };

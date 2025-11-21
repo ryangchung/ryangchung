@@ -15,6 +15,7 @@
       shellcheck
       direnv
       spotify
+      gemini-cli
     ];
 
     pathsToLink = [

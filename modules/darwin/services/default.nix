@@ -1,5 +1,5 @@
 {
   imports = [
-    ./spotifyd.nix
+    # ./spotifyd.nix
   ];
 }
