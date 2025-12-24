@@ -5,6 +5,6 @@
 
     ];
     hidden = false;
-    ignores = [];
+    ignores = [ ];
   };
 }

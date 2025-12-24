@@ -1,5 +1,4 @@
 {
-  # /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
   homebrew = {
     enable = true;
     onActivation = {
@@ -10,10 +9,9 @@
       ];
     };
     casks = [
-      "arc"
       "raycast"
-      "vivaldi"
+      "spotify"
     ];
-    # brews = [];
+    brews = [ ];
   };
 }

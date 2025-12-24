@@ -1,33 +1,33 @@
 {
   imports = [
-./aerospace.nix
-./neovim
-./zsh
-./bash.nix
-./bat.nix
-./btop.nix
-./direnv.nix
-./eza.nix
-./fd.nix
-./fzf.nix
-./gh.nix
-./git.nix
-./grep.nix
-./home-manager.nix
-./kitty.nix
-./lazygit.nix
-./man.nix
-./nh.nix
-./nix-index.nix
-./nix-search-tv.nix
-./obsidian.nix
-./ripgrep.nix
-./ssh.nix
-./television.nix
-./vim.nix
-./yazi.nix
-./zed-editor.nix
-./zellij.nix
-./zoxide.nix
+    ./aerospace.nix
+    ./neovim
+    ./zsh
+    ./bash.nix
+    ./bat.nix
+    ./btop.nix
+    ./direnv.nix
+    ./eza.nix
+    ./fd.nix
+    ./fzf.nix
+    ./gh.nix
+    ./git.nix
+    ./grep.nix
+    ./home-manager.nix
+    ./kitty.nix
+    ./lazygit.nix
+    ./man.nix
+    ./nh.nix
+    ./nix-index.nix
+    ./nix-search-tv.nix
+    ./obsidian.nix
+    ./ripgrep.nix
+    ./ssh.nix
+    ./television.nix
+    ./vim.nix
+    ./yazi.nix
+    ./zed-editor.nix
+    ./zellij.nix
+    ./zoxide.nix
   ];
 }

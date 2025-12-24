@@ -21,9 +21,9 @@
         };
       };
       keybindings = {
-       ctrl-g = "quit";
-       ctrl-e = "actions:edit";
-       alt-x ="toggle_help";
+        ctrl-g = "quit";
+        ctrl-e = "actions:edit";
+        alt-x = "toggle_help";
       };
     };
     # channels = { };

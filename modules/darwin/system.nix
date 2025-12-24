@@ -1,12 +1,11 @@
 {
-  # Configure macOS system
-  # More examples => https://github.com/ryan4yin/nix-darwin-kickstarter/blob/main/rich-demo/modules/system.nix
   system = {
     stateVersion = 6;
     startup.chime = true;
     primaryUser = "ryan";
 
     defaults = {
+      SoftwareUpdate.AutomaticallyInstallMacOSUpdates = false;
       spaces.spans-displays = false;
 
       finder = {
@@ -31,21 +30,6 @@
         AppleShowAllExtensions = true;
       };
 
-      # WindowManager = {
-      #   AutoHide = false; # Auto hide stage strip showing recent apps.
-      #   HideDesktop = false;
-      #   GloballyEnabled = false; # Enable Stage Manager Stage Manager arranges your recent windows into a single strip for reduced clutter and quick access
-      #   StandardHideWidgets = false;
-      #   EnableTilingByEdgeDrag = true; # Enable dragging windows to screen edges to tile them
-      #   StageManagerHideWidgets = false;
-      #   EnableTiledWindowMargins = true; # Enable window margins when tiling windows.
-      #   StandardHideDesktopIcons = false;
-      #   AppWindowGroupingBehavior = true; # Grouping strategy when showing windows from an application
-      #   EnableTopTilingByEdgeDrag = true; # Enable dragging windows to the menu bar to fill the screen.
-      #   EnableTilingOptionAccelerator = true; # Enable holding alt to tile windows.
-      #   EnableStandardClickToShowDesktop = false; # false means “Only in Stage Manager” true means “Always”
-      # };
-      #
       screencapture = {
         type = "png";
         target = "clipboard";
@@ -57,14 +41,8 @@
       loginwindow = {
         GuestEnabled = false;
         SleepDisabled = true;
-        # autoLoginUser = "ryan";
         DisableConsoleAccess = false;
       };
-
-      # universalaccess = {
-      #   reduceMotion = true;
-      #   reduceTransparency = false;
-      # };
 
       trackpad = {
         Clicking = true;
@@ -72,10 +50,9 @@
         ActuationStrength = 0;
         FirstClickThreshold = 0;
         SecondClickThreshold = 0;
-        # TrackpadRightClick = true;
+        TrackpadRightClick = true;
       };
 
-      SoftwareUpdate.AutomaticallyInstallMacOSUpdates = false;
 
       NSGlobalDomain = {
         AppleFontSmoothing = 2;
@@ -129,12 +106,5 @@
         ];
       };
     };
-
-    # keyboard = {
-    #   enableKeyMapping = true;
-    #   swapLeftCtrlAndFn = true;
-    #   remapCapsLockToControl = true;
-    #   swapLeftCommandAndLeftAlt = true;
-    # };
   };
 }

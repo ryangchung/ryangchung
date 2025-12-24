@@ -1,6 +1,7 @@
 {
   home.shellAliases.da = "direnv allow";
-  programs.direnv = { # https://nixos.asia/en/direnv
+  programs.direnv = {
+    # https://nixos.asia/en/direnv
     enable = true;
     silent = true;
     mise.enable = false;

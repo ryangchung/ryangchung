@@ -1,7 +1,6 @@
-{
-  pkgs,
-  lib,
-  ...
+{ pkgs
+, lib
+, ...
 }:
 {
   targets = {
@@ -9,8 +8,8 @@
       search = "Google";
       # linkApps = {
       #  enable = true;
-        # directory = "Applications/Nix Apps";
-        #};
+      # directory = "Applications/Nix Apps";
+      #};
       currentHostDefaults = {
         "com.apple.controlcenter" = {
           BatteryShowPercentage = true;

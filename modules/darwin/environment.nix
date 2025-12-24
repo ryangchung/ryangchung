@@ -4,7 +4,6 @@
     systemPackages = with pkgs; [
       macmon
       devenv
-      # spotify
     ];
 
     pathsToLink = [

@@ -7,7 +7,7 @@
 
     shellAliases = {
       mkdir = "mkdir -p";
-      coderabbit = "~/.local/bin/coderabbit";  # Relies on installing https://www.coderabbit.ai/cli
+      coderabbit = "~/.local/bin/coderabbit"; # Relies on installing https://www.coderabbit.ai/cli
     };
 
     history = {

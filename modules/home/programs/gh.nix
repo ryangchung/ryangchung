@@ -1,8 +1,8 @@
 {
   programs.gh = {
-      enable = true;
-      settings = {
-        git_protocol = "https";
-      };
+    enable = true;
+    settings = {
+      git_protocol = "https";
     };
+  };
 }
