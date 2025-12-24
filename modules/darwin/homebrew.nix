@@ -1,17 +1,24 @@
 {
   homebrew = {
     enable = true;
+    global.autoUpdate = true;
+
     onActivation = {
-      autoUpdate = true;
       upgrade = true;
+      cleanup = "zap";
+      autoUpdate = true;
+
       extraFlags = [
         "--verbose"
       ];
     };
+
+    brews = [ ];
+
     casks = [
       "raycast"
       "spotify"
+      "antigravity"
     ];
-    brews = [ ];
   };
 }

@@ -1,12 +1,35 @@
 {
   system = {
-    stateVersion = 6;
-    startup.chime = true;
     primaryUser = "ryan";
+    startup.chime = true;
+    stateVersion = 6;
 
     defaults = {
-      SoftwareUpdate.AutomaticallyInstallMacOSUpdates = false;
-      spaces.spans-displays = false;
+      controlcenter = {
+        AirDrop = false;
+        BatteryShowPercentage = false;
+        Bluetooth = false;
+        Display = false;
+        FocusModes = false;
+        NowPlaying = false;
+        Sound = false;
+      };
+
+      dock = {
+        appswitcher-all-displays = false;
+        autohide = true;
+        autohide-delay = 0.0;
+        autohide-time-modifier = 1.0;
+        expose-animation-duration = 0.0;
+        launchanim = false;
+        mru-spaces = false;
+        show-recents = false;
+
+        persistent-apps = [
+          { app = "Applications/Safari.app"; }
+          { app = "Applications/Spotify.app"; }
+        ];
+      };
 
       finder = {
         ShowPathbar = true;
@@ -30,29 +53,11 @@
         AppleShowAllExtensions = true;
       };
 
-      screencapture = {
-        type = "png";
-        target = "clipboard";
-        include-date = true;
-        disable-shadow = true;
-        show-thumbnail = true;
-      };
-
       loginwindow = {
         GuestEnabled = false;
         SleepDisabled = true;
         DisableConsoleAccess = false;
       };
-
-      trackpad = {
-        Clicking = true;
-        Dragging = true;
-        ActuationStrength = 0;
-        FirstClickThreshold = 0;
-        SecondClickThreshold = 0;
-        TrackpadRightClick = true;
-      };
-
 
       NSGlobalDomain = {
         AppleFontSmoothing = 2;
@@ -68,7 +73,6 @@
         NSNavPanelExpandedStateForSaveMode = false;
 
         _HIHideMenuBar = false;
-        # NSWindowShouldDragOnGesture = true;
 
         "com.apple.springing.delay" = 0.0;
         "com.apple.springing.enabled" = false;
@@ -79,31 +83,24 @@
         "com.apple.trackpad.trackpadCornerClickBehavior" = 1;
       };
 
-      controlcenter = {
-        Display = false;
-        AirDrop = false;
-        Bluetooth = false;
-        FocusModes = false;
-        NowPlaying = false;
-        Sound = false;
-        BatteryShowPercentage = false;
+      screencapture = {
+        type = "png";
+        target = "clipboard";
+        include-date = true;
+        disable-shadow = true;
+        show-thumbnail = true;
       };
 
-      dock = {
-        autohide = true;
-        launchanim = false;
-        mru-spaces = false;
-        autohide-delay = 0.0;
-        autohide-time-modifier = 1.0;
-        expose-animation-duration = 0.0;
-        show-recents = false;
+      SoftwareUpdate.AutomaticallyInstallMacOSUpdates = false;
+      spaces.spans-displays = false;
 
-        appswitcher-all-displays = false;
-
-        persistent-apps = [
-          { app = "Applications/Safari.app"; }
-          { app = "Applications/Spotify.app"; }
-        ];
+      trackpad = {
+        Clicking = true;
+        Dragging = true;
+        ActuationStrength = 0;
+        FirstClickThreshold = 0;
+        SecondClickThreshold = 0;
+        TrackpadRightClick = true;
       };
     };
   };
