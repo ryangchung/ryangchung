@@ -1,8 +1,9 @@
 {
   perSystem = { pkgs, ... }: {
     devShells.default = pkgs.mkShell {
-      name = "nixos-unified-template-shell";
       meta.description = "Shell environment for modifying this Nix configuration";
+      name = "nixos-unified-template-shell";
+
       packages = with pkgs; [
         just
         nixd

@@ -2,9 +2,10 @@
 
 {
   imports = [
-    inputs.nixos-unified.flakeModules.default
     inputs.nixos-unified.flakeModules.autoWire
+    inputs.nixos-unified.flakeModules.default
   ];
+
   perSystem = { self', pkgs, ... }: {
     # For 'nix fmt .'
     formatter = pkgs.nixpkgs-fmt;
