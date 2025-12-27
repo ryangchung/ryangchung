@@ -1,15 +1,13 @@
 {
   imports = [
     ./services
-
+    ./documentation.nix
+    ./environment.nix
     ./fonts.nix
-    ./system.nix
     ./homebrew.nix
+    ./myusers.nix
     ./networking.nix
     ./nixpkgs.nix
-    ./environment.nix
-    ./documentation.nix
-
-    ./myusers.nix
+    ./system.nix
   ];
 }

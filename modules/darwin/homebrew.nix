@@ -3,22 +3,26 @@
     enable = true;
     global.autoUpdate = true;
 
+    brews = [
+      "gemini-cli"
+    ];
+
+    casks = [
+      "antigravity"
+      "claude-code"
+      "obsidian"
+      "raycast"
+      "spotify"
+    ];
+
     onActivation = {
-      upgrade = true;
-      cleanup = "zap";
       autoUpdate = true;
+      cleanup = "zap";
+      upgrade = true;
 
       extraFlags = [
         "--verbose"
       ];
     };
-
-    brews = [ ];
-
-    casks = [
-      "raycast"
-      "spotify"
-      "antigravity"
-    ];
   };
 }

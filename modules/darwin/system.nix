@@ -1,7 +1,7 @@
 {
   system = {
     primaryUser = "ryan";
-    startup.chime = true;
+    startup.chime = false;
     stateVersion = 6;
 
     defaults = {

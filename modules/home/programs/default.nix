@@ -20,7 +20,6 @@
     ./nh.nix
     ./nix-index.nix
     ./nix-search-tv.nix
-    ./obsidian.nix
     ./ripgrep.nix
     ./ssh.nix
     ./television.nix
