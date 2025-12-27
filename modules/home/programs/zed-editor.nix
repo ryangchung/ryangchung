@@ -1,6 +1,7 @@
 {
   programs.zed-editor = {
     enable = true;
+
     userKeymaps = [
       {
         "bindings" = {
@@ -23,6 +24,7 @@
         };
       }
     ];
+
     userSettings = {
       vim_mode = true;
       "autosave" = "on_focus_change";

@@ -1,37 +1,34 @@
+{ ... }:
 {
-  # config,
-  ...
-}:
-{
-  # home.shellAliases.lg = "lazygit";
   programs.lazygit = {
     enable = true;
+
     settings = {
-      notARepository = "skip";
       disableStartupPopups = true;
+      notARepository = "skip";
       promptToReturnFromSubprocess = true;
 
+      git = {
+        branchPrefix = "rc/";
+        commit.signOff = true;
+        parseEmoji = true;
+      };
+
       gui = {
-        sidePanelWidth = 0.33;
         nerdFontsVersion = "3";
         scrollPastBottom = true;
         scrollOffBehaviour = "jump";
+        sidePanelWidth = 0.33;
         switchTabsWithPanelJumpKeys = true;
       };
 
       os = {
-        editInTerminal = true;
         edit = "nvim {{filename}}";
-        openDirInEditor = "nvim {{dir}}";
         editAtLine = "nvim +{{line}} {{filename}}";
+        editInTerminal = true;
+        openDirInEditor = "nvim {{dir}}";
       };
 
-      git = {
-        parseEmoji = true;
-        commit.signOff = true;
-        branchPrefix = "rc/";
-        # branchPrefix = "${config.me.username}/";
-      };
     };
   };
 }

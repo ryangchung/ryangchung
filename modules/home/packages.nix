@@ -1,7 +1,4 @@
-{ pkgs
-, lib
-, ...
-}:
+{ pkgs, lib, ... }:
 {
   home = {
     packages =
@@ -14,10 +11,7 @@
         devenv
         binutils
         binutils
-        nodejs_24 # for claude code
         shellcheck
-        claude-code
-        # spotify
       ];
   };
 }

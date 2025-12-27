@@ -5,9 +5,7 @@
     enableBashIntegration = true;
     enableZshIntegration = true;
     shellWrapperName = "yy";
-    # keymap = {};
-    # flavors = { inherit (pkgs.yaziPlugins); };
-    # theme = {};
+
     plugins = {
       inherit (pkgs.yaziPlugins)
         sudo
@@ -17,9 +15,9 @@
         full-border
         smart-filter
         rich-preview
-        # wl-clipboard
         ;
     };
+
     settings = {
       mgr = {
         ratio = [
@@ -31,8 +29,8 @@
         show_symlink = true;
         sort_dir_first = true;
       };
-      # yazi = {};
     };
+
     initLua = ''
       require("full-border"):setup()
       require("git"):setup()

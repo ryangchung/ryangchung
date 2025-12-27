@@ -2,24 +2,25 @@
   home.shellAliases.zlj = "zellij";
   programs.zellij = {
     enable = true;
-    # themes = { };
-    exitShellOnExit = false;
+
+    attachExistingSession = true;
     enableBashIntegration = true;
     enableZshIntegration = false;
-    attachExistingSession = true;
+    exitShellOnExit = false;
+
     settings = {
+      default_mode = "normal";
       mouse_mode = true;
       mirror_session = true;
-      theme = "gruvbox-dark";
-      default_mode = "normal";
-      show_startup_tips = false;
       show_release_notes = false;
-      ui.pane_frames.hide_session_name = true;
-      # load_plugins = [
-      # "file:/path/to/my-plugin.wasm"
-      # "https://example.com/my-plugin.wasm"
-      # ];
+      show_startup_tips = false;
+      theme = "gruvbox-dark";
+
+      ui.pane_frames = {
+        hide_session_name = true;
+      };
     };
+
     layouts = {
       dev = {
         layout = {

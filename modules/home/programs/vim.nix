@@ -2,10 +2,12 @@
 {
   programs.vim = {
     enable = true;
+
     plugins = with pkgs.vimPlugins; [
-      vim-nix
       vim-lastplace
+      vim-nix
     ];
+
     settings = {
       background = "dark";
       expandtab = true;
@@ -15,6 +17,7 @@
       shiftwidth = 4;
       smartcase = true;
     };
+
     extraConfig = ''
       syntax on
       set tabstop=4

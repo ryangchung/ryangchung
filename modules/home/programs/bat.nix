@@ -4,8 +4,8 @@
     cat = "bat";
     man = "batman";
     grep = "batgrep";
-    # TODO: add batpipe
   };
+
   programs.bat = {
     enable = true;
     config = {

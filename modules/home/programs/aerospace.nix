@@ -70,6 +70,7 @@
         alt-shift-semicolon = "mode service";
       };
 
+      # Explicit secondary declaration fixes dual-monitor issues
       "workspace-to-monitor-force-assignment" = {
         "1" = "main";
         "2" = "main";
