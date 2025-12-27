@@ -8,13 +8,12 @@ in
     self.homeModules.default
   ];
 
-  # Defined by /modules/home/me.nix
-  # And used all around in /modules/home/*
+  home.stateVersion = "25.05";
+
+  # Defined by /modules/home/me.nix, used in /modules/home/*
   me = {
     username = "ryan";
     fullname = "Ryan Chung";
     email = "ryan.chung.cs@gmail.com";
   };
-
-  home.stateVersion = "25.05";
 }

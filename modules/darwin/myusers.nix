@@ -1,109 +1,110 @@
-# List of users for darwin or nixos system and their top-level configuration.
-{
-  flake,
-  pkgs,
-  lib,
-  config,
-  ...
-}:
+{ flake, pkgs, lib, config, ... }:
 let
   inherit (flake.inputs) self;
   mapListToAttrs =
     m: f:
     lib.listToAttrs (
-      map (name: {
-        inherit name;
-        value = f name;
-      }) m
+      map
+        (name: {
+          inherit name;
+          value = f name;
+        })
+        m
     );
 in
 {
-  options = {
-    myusers = lib.mkOption {
-type = lib.types.listOf lib.types.str;
-description = "List of usernames";
-defaultText = "All users under .configuration/users are included by default";
-default =
-let
-         dirContents = builtins.readDir (self + /configurations/home);
-          fileNames = builtins.attrNames dirContents; # Extracts keys: [ "ryan.nix" ]
-          regularFiles = builtins.filter (name: dirContents.${name} == "regular") fileNames; # Filters for regular files
-          baseNames = map (name: builtins.replaceStrings [ ".nix" ] [ "" ] name) regularFiles; # Removes .nix extension
-        in
-        baseNames;
-    };
-  };
-
   config = {
-    # For home-manager to work.
-    # https://github.com/nix-community/home-manager/issues/4026#issuecomment-1565487545
-    users.users = mapListToAttrs config.myusers (
-      name:
-      lib.optionalAttrs pkgs.stdenv.isDarwin {
-        home = "/Users/${name}";
-      }
-      // lib.optionalAttrs pkgs.stdenv.isLinux {
-        isNormalUser = true;
-      }
-    );
+    home-manager = {
+      backupFileExtension = "hm-bak";
+      users = mapListToAttrs config.myusers (name: {
+        imports = [
+          (self + /configurations/home/${name}.nix)
+        ];
+      });
+    };
 
-    # Enable home-manager for our user
-    home-manager.users = mapListToAttrs config.myusers (name: {
-      imports = [
-        (self + /configurations/home/${name}.nix)
-      ];
-    });
-
-    # All users can add Nix caches.
     nix = {
+      channel.enable = pkgs.stdenv.isDarwin;
+      gc.automatic = true;
+      optimise.automatic = true;
+
       settings = {
+        auto-optimise-store = pkgs.stdenv.isLinux;
+        http-connections = 40;
         max-jobs = "auto";
-        trusted-users = [
-          "root"
-        ]
-        ++ config.myusers;
+        max-substitution-jobs = 32;
+        show-trace = true;
+        trace-verbose = true;
+
         experimental-features = [
           "flakes"
           "nix-command"
         ];
 
+        trusted-users = [
+
+        ] ++ lib.optionals pkgs.stdenv.isLinux [
+          "root"
+        ] ++ lib.optionals pkgs.stdenv.isDarwin [
+          "@admin"
+        ] ++ config.myusers;
+
         substituters = [
-          "ryangchung.cachix.org"
+          "https://cache.nixos.org"
+          "https://cachix.cachix.org"
+          "https://devenv.cachix.org"
+          "https://mfarabi.cachix.org"
+          "https://nixpkgs.cachix.org"
+          "https://nix-darwin.cachix.org"
+          "https://nix-community.cachix.org"
         ];
 
-        # trusted-substituters = [
-        #   "ryangchung.cachix.org"
-        # ];
+        trusted-substituters = [
+          "https://cache.nixos.org"
+          "https://cachix.cachix.org"
+          "https://devenv.cachix.org"
+          "https://nixpkgs.cachix.org"
+          "https://nix-darwin.cachix.org"
+          "https://nix-community.cachix.org"
+        ];
 
         trusted-public-keys = [
-          "ryangchung.cachix.org-1:9LciX67wC92VTJkguloLpP/W2+hA7pcxyqiXqnS2XAU="
-        ];
-
-      };
-
-      linux-builder = {
-        enable = false;
-        workingDirectory = "var/lib/linux-builder";
-        systems = [
-          "x86_64-linux"
-          "aarch64-linux"
-        ];
-        supportedFeatures = [
-          "kvm"
-          "benchmark"
-          "big-parallel"
+          "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
+          "cachix.cachix.org-1:eWNHQldwUO7G2VkjpnjDbWwy4KQ/HNxht7H4SSoMckM="
+          "devenv.cachix.org-1:w1cLUi8dv3hnoSPGAuibQv+f9TZLr6cv/Hm9XgU50cw="
+          "nixpkgs.cachix.org-1:q91R6hxbwFvDqTSDKwDAV4T5PxqXGxswD8vhONFMeOE="
+          "nix-darwin.cachix.org-1:LxMyKzQk7Uqkc1Pfq5uhm9GSn07xkERpy+7cpwc006A="
+          "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
         ];
       };
+    };
 
-      channel.enable = false;
+    users.users = mapListToAttrs config.myusers (
+      name:
+      lib.optionalAttrs pkgs.stdenv.isDarwin
+        {
+          home = "/Users/${name}";
+        }
+      // lib.optionalAttrs pkgs.stdenv.isLinux {
+        isNormalUser = true;
+        shell = pkgs.zsh;
+      }
+    );
+  };
 
-      gc = {
-        automatic = false;
-      };
-
-      optimise = {
-        automatic = false;
-      };
+  options = {
+    myusers = lib.mkOption {
+      default =
+        let
+          dirContents = builtins.readDir (self + /configurations/home);
+          fileNames = builtins.attrNames dirContents; # Extracts keys: [ "ryan.nix" ]
+          regularFiles = builtins.filter (name: dirContents.${name} == "regular") fileNames; # Filters for regular files
+          baseNames = map (name: builtins.replaceStrings [ ".nix" ] [ "" ] name) regularFiles; # Removes .nix extension
+        in
+        baseNames;
+      description = "List of usernames";
+      defaultText = "All users under ./configuration/users are included by default";
+      type = lib.types.listOf lib.types.str;
     };
   };
 }

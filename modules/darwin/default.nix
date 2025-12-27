@@ -1,15 +1,13 @@
-# This is your nix-darwin configuration.
-# For home configuration, see /modules/home/*
 {
   imports = [
-    ./myusers.nix
+    ./services
     ./documentation.nix
     ./environment.nix
+    ./fonts.nix
     ./homebrew.nix
-    ./services
+    ./myusers.nix
     ./networking.nix
     ./nixpkgs.nix
     ./system.nix
-    ./fonts.nix
   ];
 }

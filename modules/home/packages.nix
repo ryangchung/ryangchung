@@ -1,16 +1,17 @@
-{
-  pkgs,
-  lib,
-  ...
-}:
+{ pkgs, lib, ... }:
 {
   home = {
     packages =
       with pkgs; [
       ] ++ lib.optionals stdenv.isDarwin [
-        nodejs_24  # for claude code
-        claude-code
-        # spotify
+        vips
+        gnutls
+        sqlite
+        direnv
+        devenv
+        binutils
+        binutils
+        shellcheck
       ];
   };
 }

@@ -1,19 +1,28 @@
 {
-  # /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
   homebrew = {
     enable = true;
+    global.autoUpdate = true;
+
+    brews = [
+      "gemini-cli"
+    ];
+
+    casks = [
+      "antigravity"
+      "claude-code"
+      "obsidian"
+      "raycast"
+      "spotify"
+    ];
+
     onActivation = {
       autoUpdate = true;
+      cleanup = "zap";
       upgrade = true;
+
       extraFlags = [
         "--verbose"
       ];
     };
-    casks = [
-      "arc"
-      "raycast"
-      "vivaldi"
-    ];
-    # brews = [];
   };
 }

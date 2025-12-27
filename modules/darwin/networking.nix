@@ -1,7 +1,7 @@
 {
   networking = {
-    hostName = "macos";
     computerName = "macos";
+    hostName = "macos";
     localHostName = "macos";
     wakeOnLan.enable = false;
   };

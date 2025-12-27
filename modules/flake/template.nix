@@ -1,4 +1,3 @@
-# Allow using this repo in `nix flake init`
 { inputs, ... }:
 {
   flake = rec {
@@ -18,8 +17,8 @@
             hasInfix "configurations/nixos" path
             || (hasInfix "modules/nixos/" path && !hasInfix "modules/nixos/common" path);
           homeFilter =
-              !(nixosOnly || darwinOnly) && 
-              !hasInfix "modules/nixos" path;
+            !(nixosOnly || darwinOnly) &&
+            !hasInfix "modules/nixos" path;
           alwaysExclude =
             hasSuffix "LICENSE" path
             || hasSuffix "README.md" path
@@ -56,7 +55,7 @@
             filter = path: _:
               let f = filters path;
               in
-                f.homeFilter;
+              f.homeFilter;
           };
         };
 

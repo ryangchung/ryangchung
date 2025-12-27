@@ -1,13 +1,35 @@
 {
-  # Configure macOS system
-  # More examples => https://github.com/ryan4yin/nix-darwin-kickstarter/blob/main/rich-demo/modules/system.nix
   system = {
-    stateVersion = 6;
-    startup.chime = true;
     primaryUser = "ryan";
+    startup.chime = false;
+    stateVersion = 6;
 
     defaults = {
-      spaces.spans-displays = false;
+      controlcenter = {
+        AirDrop = false;
+        BatteryShowPercentage = false;
+        Bluetooth = false;
+        Display = false;
+        FocusModes = false;
+        NowPlaying = false;
+        Sound = false;
+      };
+
+      dock = {
+        appswitcher-all-displays = false;
+        autohide = true;
+        autohide-delay = 0.0;
+        autohide-time-modifier = 1.0;
+        expose-animation-duration = 0.0;
+        launchanim = false;
+        mru-spaces = false;
+        show-recents = false;
+
+        persistent-apps = [
+          { app = "Applications/Safari.app"; }
+          { app = "Applications/Spotify.app"; }
+        ];
+      };
 
       finder = {
         ShowPathbar = true;
@@ -31,51 +53,11 @@
         AppleShowAllExtensions = true;
       };
 
-      # WindowManager = {
-      #   AutoHide = false; # Auto hide stage strip showing recent apps.
-      #   HideDesktop = false;
-      #   GloballyEnabled = false; # Enable Stage Manager Stage Manager arranges your recent windows into a single strip for reduced clutter and quick access
-      #   StandardHideWidgets = false;
-      #   EnableTilingByEdgeDrag = true; # Enable dragging windows to screen edges to tile them
-      #   StageManagerHideWidgets = false;
-      #   EnableTiledWindowMargins = true; # Enable window margins when tiling windows.
-      #   StandardHideDesktopIcons = false;
-      #   AppWindowGroupingBehavior = true; # Grouping strategy when showing windows from an application
-      #   EnableTopTilingByEdgeDrag = true; # Enable dragging windows to the menu bar to fill the screen.
-      #   EnableTilingOptionAccelerator = true; # Enable holding alt to tile windows.
-      #   EnableStandardClickToShowDesktop = false; # false means “Only in Stage Manager” true means “Always”
-      # };
-      #
-      screencapture = {
-        type = "png";
-        target = "clipboard";
-        include-date = true;
-        disable-shadow = true;
-        show-thumbnail = true;
-      };
-
       loginwindow = {
         GuestEnabled = false;
         SleepDisabled = true;
-        # autoLoginUser = "ryan";
         DisableConsoleAccess = false;
       };
-
-      # universalaccess = {
-      #   reduceMotion = true;
-      #   reduceTransparency = false;
-      # };
-
-      trackpad = {
-        Clicking = true;
-        Dragging = true;
-        ActuationStrength = 0;
-        FirstClickThreshold = 0;
-        SecondClickThreshold = 0;
-        # TrackpadRightClick = true;
-      };
-
-      SoftwareUpdate.AutomaticallyInstallMacOSUpdates = false;
 
       NSGlobalDomain = {
         AppleFontSmoothing = 2;
@@ -91,7 +73,6 @@
         NSNavPanelExpandedStateForSaveMode = false;
 
         _HIHideMenuBar = false;
-        # NSWindowShouldDragOnGesture = true;
 
         "com.apple.springing.delay" = 0.0;
         "com.apple.springing.enabled" = false;
@@ -102,39 +83,25 @@
         "com.apple.trackpad.trackpadCornerClickBehavior" = 1;
       };
 
-      controlcenter = {
-        Display = false;
-        AirDrop = false;
-        Bluetooth = false;
-        FocusModes = false;
-        NowPlaying = false;
-        Sound = false;
-        BatteryShowPercentage = false;
+      screencapture = {
+        type = "png";
+        target = "clipboard";
+        include-date = true;
+        disable-shadow = true;
+        show-thumbnail = true;
       };
 
-      dock = {
-        autohide = true;
-        launchanim = false;
-        mru-spaces = false;
-        autohide-delay = 0.0;
-        autohide-time-modifier = 1.0;
-        expose-animation-duration = 0.0;
-        show-recents = false;
+      SoftwareUpdate.AutomaticallyInstallMacOSUpdates = false;
+      spaces.spans-displays = false;
 
-        appswitcher-all-displays = false;
-
-        persistent-apps = [
-          { app = "Applications/Safari.app"; }
-          { app = "Applications/Spotify.app"; }
-        ];
+      trackpad = {
+        Clicking = true;
+        Dragging = true;
+        ActuationStrength = 0;
+        FirstClickThreshold = 0;
+        SecondClickThreshold = 0;
+        TrackpadRightClick = true;
       };
     };
-
-    # keyboard = {
-    #   enableKeyMapping = true;
-    #   swapLeftCtrlAndFn = true;
-    #   remapCapsLockToControl = true;
-    #   swapLeftCommandAndLeftAlt = true;
-    # };
   };
 }
