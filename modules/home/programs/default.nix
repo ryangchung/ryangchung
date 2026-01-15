@@ -13,6 +13,7 @@
     ./kitty.nix
     ./lazygit.nix
     ./man.nix
+    ./opencode.nix
     ./ripgrep.nix
     ./ssh.nix
     ./vim.nix
