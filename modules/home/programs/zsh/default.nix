@@ -8,6 +8,7 @@
     shellAliases = {
       mkdir = "mkdir -p";
       coderabbit = "~/.local/bin/coderabbit"; # Relies on installing https://www.coderabbit.ai/cli
+      leader-key-settings = "open \"leaderkey://settings\"";
     };
 
     history = {

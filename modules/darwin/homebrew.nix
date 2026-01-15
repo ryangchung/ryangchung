@@ -10,6 +10,7 @@
     casks = [
       "antigravity"
       "claude-code"
+      "leader-key"
       "obsidian"
       "raycast"
       "spotify"
