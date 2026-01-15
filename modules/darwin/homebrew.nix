@@ -3,13 +3,9 @@
     enable = true;
     global.autoUpdate = true;
 
-    brews = [
-      "gemini-cli"
-    ];
-
     casks = [
       "antigravity"
-      "claude-code"
+      "codex"
       "leader-key"
       "obsidian"
       "raycast"
