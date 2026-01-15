@@ -20,7 +20,6 @@
       ignoreDups = true;
       ignoreAllDups = true;
       expireDuplicatesFirst = true;
-      # path = "`\${config.programs.zsh.dotDir}/.zsh_history`"; # default
     };
 
     autosuggestion = {
@@ -68,10 +67,5 @@
         "macos"
       ];
     };
-
-    # envExtra = '''';     # ~/.zshenv
-    # loginExtra = '''';   # ~/.zlogin
-    # logoutExtra = '''';  # ~/.zlogout
-    # profileExtra = ''''; # ~/.zprofile
   };
 }
