@@ -3,13 +3,19 @@
     enable = true;
     global.autoUpdate = true;
 
+    brews = [
+      "gh"
+      "hugo"
+    ];
+
     casks = [
+      "anki"
       "antigravity"
-      "codex"
-      "leader-key"
+      "google-chrome"
       "obsidian"
       "raycast"
       "spotify"
+      "visual-studio-code"
     ];
 
     onActivation = {
