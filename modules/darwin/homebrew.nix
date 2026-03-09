@@ -5,13 +5,14 @@
 
     brews = [
       "gh"
+      "poppler"
       "hugo"
     ];
 
     casks = [
       "anki"
-      "antigravity"
       "google-chrome"
+      "codex"
       "obsidian"
       "raycast"
       "spotify"
