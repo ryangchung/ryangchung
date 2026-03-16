@@ -4,6 +4,7 @@
     global.autoUpdate = true;
 
     brews = [
+      "bob"
       "gh"
       "poppler"
       "hugo"
