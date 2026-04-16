@@ -8,6 +8,7 @@
       "gh"
       "poppler"
       "hugo"
+	  "swi-prolog"
     ];
 
     casks = [
