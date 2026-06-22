@@ -8,15 +8,15 @@
       "gh"
       "poppler"
       "hugo"
-	  "swi-prolog"
+      "rtk"
     ];
 
     casks = [
-      "anki"
+      # "anki"
       "google-chrome"
       "codex"
       "obsidian"
-      "raycast"
+      # "raycast"
       "spotify"
       "visual-studio-code"
     ];

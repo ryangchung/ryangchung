@@ -5,9 +5,12 @@
     autocd = false;
     enableCompletion = true;
 
+    initContent = ''
+      eval "$(devenv hook zsh)"
+    '';
+
     shellAliases = {
       mkdir = "mkdir -p";
-      nvim = "$HOME/.local/share/bob/nvim-bin/nvim"; 
     };
 
     history = {

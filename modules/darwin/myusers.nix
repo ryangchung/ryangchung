@@ -53,7 +53,6 @@ in
           "https://cache.nixos.org"
           "https://cachix.cachix.org"
           "https://devenv.cachix.org"
-          "https://mfarabi.cachix.org"
           "https://nixpkgs.cachix.org"
           "https://nix-darwin.cachix.org"
           "https://nix-community.cachix.org"
