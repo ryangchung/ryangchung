@@ -24,12 +24,12 @@ in
     };
 
     nix = {
-      channel.enable = pkgs.stdenv.isDarwin;
+      channel.enable = pkgs.stdenv.hostPlatform.isDarwin;
       gc.automatic = true;
       optimise.automatic = true;
 
       settings = {
-        auto-optimise-store = pkgs.stdenv.isLinux;
+        auto-optimise-store = pkgs.stdenv.hostPlatform.isLinux;
         http-connections = 40;
         max-jobs = "auto";
         max-substitution-jobs = 32;
@@ -43,14 +43,15 @@ in
 
         trusted-users = [
 
-        ] ++ lib.optionals pkgs.stdenv.isLinux [
+        ] ++ lib.optionals pkgs.stdenv.hostPlatform.isLinux [
           "root"
-        ] ++ lib.optionals pkgs.stdenv.isDarwin [
+        ] ++ lib.optionals pkgs.stdenv.hostPlatform.isDarwin [
           "@admin"
         ] ++ config.myusers;
 
         substituters = [
           "https://cache.nixos.org"
+          "https://cache.flox.dev"
           "https://cachix.cachix.org"
           "https://devenv.cachix.org"
           "https://nixpkgs.cachix.org"
@@ -60,6 +61,7 @@ in
 
         trusted-substituters = [
           "https://cache.nixos.org"
+          "https://cache.flox.dev"
           "https://cachix.cachix.org"
           "https://devenv.cachix.org"
           "https://nixpkgs.cachix.org"
@@ -69,6 +71,7 @@ in
 
         trusted-public-keys = [
           "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
+          "flox-cache-public-1:7F4OyH7ZCnFhcze3fJdfyXYLQw/aV7GEed86nQ7IsOs="
           "cachix.cachix.org-1:eWNHQldwUO7G2VkjpnjDbWwy4KQ/HNxht7H4SSoMckM="
           "devenv.cachix.org-1:w1cLUi8dv3hnoSPGAuibQv+f9TZLr6cv/Hm9XgU50cw="
           "nixpkgs.cachix.org-1:q91R6hxbwFvDqTSDKwDAV4T5PxqXGxswD8vhONFMeOE="
@@ -80,11 +83,11 @@ in
 
     users.users = mapListToAttrs config.myusers (
       name:
-      lib.optionalAttrs pkgs.stdenv.isDarwin
+      lib.optionalAttrs pkgs.stdenv.hostPlatform.isDarwin
         {
           home = "/Users/${name}";
         }
-      // lib.optionalAttrs pkgs.stdenv.isLinux {
+      // lib.optionalAttrs pkgs.stdenv.hostPlatform.isLinux {
         isNormalUser = true;
         shell = pkgs.zsh;
       }

@@ -6,7 +6,7 @@
       frequency = "daily";
     };
 
-    autoUpgrade = lib.mkIf pkgs.stdenv.isLinux {
+    autoUpgrade = lib.mkIf pkgs.stdenv.hostPlatform.isLinux {
       enable = true;
       frequency = "daily";
     };

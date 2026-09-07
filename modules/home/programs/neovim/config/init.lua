@@ -1,7 +1,4 @@
 vim.g.mapleader = " "
-vim.keymap.set("n", "<leader>gh", function()
-  vim.fn.system("gh pr view --web")
-end)
 vim.g.maplocalleader = " "
 
 local opt = vim.o
@@ -168,6 +165,30 @@ local function map(mode, lhs, rhs, desc)
 	vim.keymap.set(mode, lhs, rhs, { desc = desc })
 end
 
+local function gh_pr(args)
+	if vim.fn.executable("gh") ~= 1 then
+		vim.notify("gh is not available in Neovim's PATH", vim.log.levels.ERROR)
+		return
+	end
+
+	vim.system(vim.list_extend({ "gh", "pr" }, args), { text = true }, function(result)
+		if result.code == 0 then
+			return
+		end
+
+		local stderr = result.stderr or ""
+		local stdout = result.stdout or ""
+		local message = vim.trim(stderr ~= "" and stderr or stdout)
+		if message == "" then
+			message = "gh pr " .. table.concat(args, " ") .. " exited with code " .. result.code
+		end
+
+		vim.schedule(function()
+			vim.notify(message, vim.log.levels.ERROR)
+		end)
+	end)
+end
+
 map("n", "<leader>o", "<cmd>update<CR><cmd>source $MYVIMRC<CR>", "Reload config")
 map("n", "<leader>w", "<cmd>write<CR>", "Write buffer")
 map("n", "<leader>q", "<cmd>quit<CR>", "Quit window")
@@ -192,13 +213,13 @@ map("n", "gd", vim.lsp.buf.definition, "Go to definition")
 map("n", "gr", vim.lsp.buf.references, "List references")
 map("n", "gi", vim.lsp.buf.implementation, "Go to implementation")
 map({ "n", "v" }, "<leader>y", [["+y]], "Yank to system clipboard")
-vim.keymap.set('t', '<Esc><Esc>', [[<C-\><C-n>]])
-vim.keymap.set("n", "<leader>gh", function()
-  vim.fn.system("gh pr list --web")
-end)
-vim.keymap.set("n", "<leader>gp", function()
-  vim.fn.system("gh pr view --web")
-end)
+vim.keymap.set("t", "<Esc><Esc>", [[<C-\><C-n>]])
+map("n", "<leader>gh", function()
+	gh_pr({ "list", "--web" })
+end, "Open pull requests")
+map("n", "<leader>gp", function()
+	gh_pr({ "view", "--web" })
+end, "Open current branch pull request")
 
 vim.pack.add({
 	{ src = "https://github.com/catppuccin/nvim" },

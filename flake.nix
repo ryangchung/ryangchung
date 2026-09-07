@@ -1,6 +1,12 @@
 {
   description = "Ryan Chung's distributed NixOS Configurations.";
 
+  nixConfig = {
+    extra-substituters = [ "https://cache.flox.dev" ];
+    extra-trusted-substituters = [ "https://cache.flox.dev" ];
+    extra-trusted-public-keys = [ "flox-cache-public-1:7F4OyH7ZCnFhcze3fJdfyXYLQw/aV7GEed86nQ7IsOs=" ];
+  };
+
   inputs = {
     flake-parts.url = "github:hercules-ci/flake-parts";
 
@@ -15,6 +21,8 @@
 
     nix-index-database.inputs.nixpkgs.follows = "nixpkgs";
     nix-index-database.url = "github:nix-community/nix-index-database";
+
+    flox.url = "github:flox/flox/latest";
   };
 
   outputs = inputs:

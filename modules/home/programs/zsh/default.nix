@@ -65,7 +65,7 @@
         "colorize"
         "colored-man-pages"
       ]
-      ++ lib.optionals pkgs.stdenv.isDarwin [
+      ++ lib.optionals pkgs.stdenv.hostPlatform.isDarwin [
         "macos"
       ];
     };

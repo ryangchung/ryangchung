@@ -11,6 +11,9 @@
     withRuby = true;
     withNodeJs = true;
     withPython3 = true;
+    extraPackages = with pkgs; [
+      gh
+    ];
 
     initLua = builtins.readFile ./config/init.lua;
   };

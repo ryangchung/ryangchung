@@ -9,7 +9,7 @@
       promptToReturnFromSubprocess = true;
 
       git = {
-        branchPrefix = "rc/";
+        branchPrefix = "ryangchung/";
         commit.signOff = true;
         parseEmoji = true;
       };

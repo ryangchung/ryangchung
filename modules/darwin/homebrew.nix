@@ -12,11 +12,8 @@
     ];
 
     casks = [
-      # "anki"
-      "google-chrome"
       "codex"
-      "obsidian"
-      # "raycast"
+      # "obsidian"
       "spotify"
       "visual-studio-code"
     ];
