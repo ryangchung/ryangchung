@@ -1,0 +1,24 @@
+{
+  "worktree": true,
+  "defaultSubagentContext": "fresh",
+  "inlineToolDisplay": "summary",
+  "parallel": {
+    "maxTasks": 4,
+    "concurrency": 2
+  },
+  "globalConcurrencyLimit": 3,
+  "maxActiveAsyncRunsPerSession": 2,
+  "maxSubagentSpawnsPerSession": 24,
+  "maxSubagentSpawnsPerRun": 8,
+  "maxSubagentDepth": 1,
+  "scheduledRuns": {
+    "enabled": false,
+    "maxPending": 10
+  },
+  "permissions": {
+    "rules": {
+      "edit": "deny",
+      "write": "deny"
+    }
+  }
+}

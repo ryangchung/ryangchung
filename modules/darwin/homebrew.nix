@@ -5,20 +5,19 @@
 
     brews = [
       "bob"
-      "gh"
       "poppler"
       "hugo"
       "rtk"
+      "pi-coding-agent"
+      "bat"
+      "git-delta"
+      "glow"
     ];
 
     casks = [
-      # "anki"
-      "google-chrome"
-      "codex"
-      "obsidian"
-      # "raycast"
+      # "codex"
       "spotify"
-      "visual-studio-code"
+      # "visual-studio-code"
     ];
 
     onActivation = {

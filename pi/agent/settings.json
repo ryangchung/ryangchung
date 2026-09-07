@@ -1,0 +1,16 @@
+{
+  "lastChangelogVersion": "0.85.1",
+  "theme": "dark",
+  "defaultProvider": "openai-codex",
+  "defaultModel": "gpt-5.5",
+  "packages": [
+    "npm:pi-web-access",
+    "npm:@tmustier/pi-files-widget",
+    "npm:context-mode",
+    "npm:pi-lens",
+    "npm:@majorgilles/pi-grill-me@0.3.0",
+    "npm:@ian-pascoe/pi-git-checkpoints@0.2.2",
+    "npm:@narumitw/pi-usage",
+    "npm:pi-subagents@0.66.0"
+  ]
+}

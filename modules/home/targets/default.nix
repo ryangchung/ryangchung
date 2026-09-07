@@ -4,7 +4,7 @@
 }:
 {
   targets = {
-    darwin = lib.mkIf pkgs.stdenv.isDarwin {
+    darwin = lib.mkIf pkgs.stdenv.hostPlatform.isDarwin {
       search = "Google";
 
       currentHostDefaults = {
@@ -50,6 +50,10 @@
       };
 
       linkApps = {
+        enable = false;
+      };
+
+      copyApps = {
         enable = true;
         directory = "Applications";
       };

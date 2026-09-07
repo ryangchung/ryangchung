@@ -1,9 +1,13 @@
-{ pkgs, lib, ... }:
+{ flake, pkgs, lib, ... }:
+let
+  flox = flake.inputs.flox.packages.${pkgs.stdenv.hostPlatform.system}.default;
+in
 {
   home = {
     packages =
-      with pkgs; [
-      ] ++ lib.optionals stdenv.isDarwin [
+      [
+        flox
+      ] ++ lib.optionals pkgs.stdenv.hostPlatform.isDarwin (with pkgs; [
         vips
         gnutls
         sqlite
@@ -12,6 +16,6 @@
         binutils
         binutils
         shellcheck
-      ];
+      ]);
   };
 }

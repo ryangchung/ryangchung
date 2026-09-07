@@ -61,23 +61,8 @@
         };
         "button" = false;
       };
-      "agent" = {
-        "default_profile" = "ask";
-        "always_allow_tool_actions" = true;
-        "dock" = "right";
-        "model_parameters" = [ ];
-        "default_model" = {
-          "provider" = "copilot_chat";
-          "model" = "claude-sonnet-4";
-        };
-      };
       "edit_predictions" = {
         "mode" = "subtle";
-        "copilot" = {
-          "proxy" = null;
-          "proxy_no_verify" = null;
-        };
-        "enabled_in_text_threads" = false;
       };
       "toolbar" = {
         "selections_menu" = false;
@@ -87,8 +72,8 @@
         metrics = false;
         diagnostics = false;
       };
-      "ui_font_size" = 14;
-      "buffer_font_size" = 14;
+      "ui_font_size" = 12;
+      "buffer_font_size" = 12;
       theme = {
         mode = "system";
         light = "One Light";
@@ -108,9 +93,6 @@
       };
       "project_panel" = {
         dock = "right";
-      };
-      "notification_panel" = {
-        button = false;
       };
     };
     extensions = [

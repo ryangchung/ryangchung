@@ -4,21 +4,19 @@
     ./zsh
     ./aerospace.nix
     ./bash.nix
-    ./bat.nix
-    ./btop.nix
-    ./direnv.nix
     ./eza.nix
     ./git.nix
+    ./gh.nix
     ./home-manager.nix
     ./kitty.nix
     ./lazygit.nix
-    ./man.nix
     ./opencode.nix
+    ./pi.nix
     ./ripgrep.nix
     ./ssh.nix
-    ./vim.nix
+    ./vscode.nix
     ./yazi.nix
-    # ./zed-editor.nix
+    ./zed-editor.nix
     ./zellij.nix
     ./zoxide.nix
   ];

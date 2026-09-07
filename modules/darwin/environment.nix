@@ -11,7 +11,7 @@
 
     systemPackages = with pkgs; [
       coreutils
-    ] ++ lib.optionals stdenv.isAarch64 [
+    ] ++ lib.optionals stdenv.hostPlatform.isAarch64 [
       macmon
     ];
 
