@@ -5,6 +5,12 @@
     stateVersion = 6;
 
     defaults = {
+      CustomUserPreferences = {
+        "com.apple.controlcenter" = {
+          WidgetDesktop = 0;
+        };
+      };
+
       controlcenter = {
         AirDrop = false;
         BatteryShowPercentage = false;
@@ -24,11 +30,13 @@
         launchanim = false;
         mru-spaces = false;
         show-recents = false;
+        tilesize = 48;
 
         persistent-apps = [
           { app = "Applications/Safari.app"; }
           { app = "Applications/Spotify.app"; }
         ];
+        persistent-others = [ ];
       };
 
       finder = {
@@ -59,6 +67,12 @@
         DisableConsoleAccess = false;
       };
 
+      WindowManager = {
+        EnableStandardClickToShowDesktop = false;
+        StandardHideWidgets = true;
+        StageManagerHideWidgets = true;
+      };
+
       NSGlobalDomain = {
         AppleFontSmoothing = 2;
         AppleInterfaceStyle = "Dark";
@@ -77,6 +91,7 @@
         "com.apple.springing.delay" = 0.0;
         "com.apple.springing.enabled" = false;
 
+        "com.apple.swipescrolldirection" = false;
         "com.apple.trackpad.scaling" = 1.0;
         "com.apple.sound.beep.feedback" = 1;
         "com.apple.trackpad.enableSecondaryClick" = true;
