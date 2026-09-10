@@ -15,6 +15,7 @@ opt.ruler = false
 vim.opt.showmode = false
 opt.guifont = "Iosevka:h14"
 vim.opt.cmdheight = 0
+opt.laststatus = 2
 
 _G.mode_icon = function()
 	local m = vim.fn.mode()
@@ -25,7 +26,7 @@ _G.mode_icon = function()
 	return "?"
 end
 
-vim.o.statusline = "%f  %{%v:lua.mode_icon()%}"
+vim.o.statusline = "%f %m%= %{%v:lua.mode_icon()%} "
 
 local function set_statusline_highlights()
 	vim.cmd("hi StatusLine guibg=NONE ctermbg=NONE")
@@ -34,44 +35,17 @@ end
 
 set_statusline_highlights()
 
-local telescope_ui_group = vim.api.nvim_create_augroup("TelescopeUi", { clear = true })
-local hidden_statusline_depth = 0
-local saved_laststatus = vim.o.laststatus
-
-local function hide_statusline()
-	if hidden_statusline_depth == 0 then
-		saved_laststatus = vim.o.laststatus
-		vim.o.laststatus = 0
-	end
-	hidden_statusline_depth = hidden_statusline_depth + 1
-end
-
-local function show_statusline()
-	if hidden_statusline_depth == 0 then
-		return
-	end
-	hidden_statusline_depth = hidden_statusline_depth - 1
-	if hidden_statusline_depth == 0 then
-		vim.o.laststatus = saved_laststatus
-	end
-end
-
-vim.api.nvim_create_autocmd("CmdlineEnter", {
-	group = telescope_ui_group,
-	callback = hide_statusline,
-})
-
-vim.api.nvim_create_autocmd("CmdlineLeave", {
-	group = telescope_ui_group,
-	callback = function()
-		vim.schedule(show_statusline)
-	end,
-})
-
 local terminal = {
 	buf = nil,
 	win = nil,
 }
+
+local lazygit_terminal = {
+	buf = nil,
+	win = nil,
+}
+
+local centered_wins = {}
 
 local function floating_dimensions()
 	local columns = vim.o.columns
@@ -90,32 +64,57 @@ local function floating_window_config()
 
 	return {
 		relative = "editor",
+		anchor = "NW",
 		width = dimensions.width,
 		height = dimensions.height,
 		col = math.floor((columns - dimensions.width) / 2),
-		row = math.floor((lines - dimensions.height) / 2 - 1),
+		row = math.floor((lines - dimensions.height) / 2),
 		style = "minimal",
 		border = "rounded",
 	}
 end
 
-local function telescope_picker_opts()
-	local dimensions = floating_dimensions()
+local function open_float_term(state, command, opts)
+	opts = opts or {}
+	if state.win and vim.api.nvim_win_is_valid(state.win) then
+		vim.api.nvim_set_current_win(state.win)
+		vim.cmd.startinsert()
+		return
+	end
 
-	return {
-		layout_strategy = "horizontal",
+	if not (state.buf and vim.api.nvim_buf_is_valid(state.buf)) then
+		state.buf = vim.api.nvim_create_buf(false, true)
+		vim.bo[state.buf].bufhidden = opts.bufhidden or "hide"
+	end
 
-		layout_config = {
-			width = dimensions.width,
-			height = dimensions.height,
-			prompt_position = "top",
-			preview_cutoff = 0,
-			horizontal = {
-				preview_width = math.floor(dimensions.width * 0.55),
-			},
-		},
-		sorting_strategy = "ascending",
-	}
+	state.win = vim.api.nvim_open_win(state.buf, true, floating_window_config())
+	vim.wo[state.win].number = false
+	vim.wo[state.win].relativenumber = false
+	vim.wo[state.win].winhighlight = "Normal:NormalFloat,NormalNC:NormalFloat,EndOfBuffer:NormalFloat"
+
+	if vim.bo[state.buf].buftype ~= "terminal" then
+		local buf = state.buf
+		if opts.terminal_escape then
+			vim.keymap.set("t", "<Esc><Esc>", [[<C-\><C-n>]], { buffer = buf })
+		end
+		vim.fn.jobstart(command, {
+			term = true,
+			on_exit = function()
+				vim.schedule(function()
+					if state.win and vim.api.nvim_win_is_valid(state.win) then
+						vim.api.nvim_win_close(state.win, true)
+					end
+					if buf and opts.bufhidden == "wipe" and vim.api.nvim_buf_is_valid(buf) then
+						vim.api.nvim_buf_delete(buf, { force = true })
+					end
+					state.buf = nil
+					state.win = nil
+				end)
+			end,
+		})
+	end
+
+	vim.cmd.startinsert()
 end
 
 local function toggle_terminal()
@@ -124,41 +123,55 @@ local function toggle_terminal()
 		terminal.win = nil
 		return
 	end
+	open_float_term(terminal, { vim.o.shell }, { terminal_escape = true })
+end
 
-	if not (terminal.buf and vim.api.nvim_buf_is_valid(terminal.buf)) then
-		terminal.buf = vim.api.nvim_create_buf(false, true)
-		vim.bo[terminal.buf].bufhidden = "hide"
+local function lazygit()
+	if vim.fn.executable("lazygit") ~= 1 then
+		vim.notify("lazygit is not available in Neovim's PATH", vim.log.levels.ERROR)
+		return
+	end
+	open_float_term(lazygit_terminal, { "lazygit" }, { bufhidden = "wipe" })
+end
+
+vim.api.nvim_create_user_command("LazyGit", lazygit, {})
+vim.api.nvim_create_user_command("Lg", lazygit, {})
+
+local function center_sidebar(command)
+	vim.cmd(command)
+	local win = vim.api.nvim_get_current_win()
+	vim.bo.buftype = "nofile"
+	vim.bo.bufhidden = "wipe"
+	vim.bo.swapfile = false
+	vim.wo.number = false
+	vim.wo.relativenumber = false
+	vim.wo.statusline = " "
+	vim.wo.winfixwidth = true
+	return win
+end
+
+local function toggle_centered_buffer()
+	if #centered_wins > 0 then
+		for _, win in ipairs(centered_wins) do
+			if vim.api.nvim_win_is_valid(win) then
+				vim.api.nvim_win_close(win, true)
+			end
+		end
+		centered_wins = {}
+		return
 	end
 
-	terminal.win = vim.api.nvim_open_win(terminal.buf, true, floating_window_config())
-
-	vim.wo[terminal.win].number = false
-	vim.wo[terminal.win].relativenumber = false
-	vim.wo[terminal.win].winhighlight =
-	"Normal:TelescopeNormal,NormalNC:TelescopeNormal,FloatBorder:TelescopeBorder,EndOfBuffer:TelescopeNormal"
-
-	if vim.bo[terminal.buf].buftype ~= "terminal" then
-		local buf = terminal.buf
-
-
-		vim.fn.jobstart({ vim.o.shell }, {
-			term = true,
-			on_exit = function()
-				vim.schedule(function()
-					if terminal.win and vim.api.nvim_win_is_valid(terminal.win) then
-						vim.api.nvim_win_close(terminal.win, true)
-					end
-					if buf and vim.api.nvim_buf_is_valid(buf) then
-						vim.api.nvim_buf_delete(buf, { force = true })
-					end
-					terminal.buf = nil
-					terminal.win = nil
-				end)
-			end,
-		})
+	local width = math.floor((vim.o.columns - 120) / 2)
+	if width < 1 then
+		return
 	end
 
-	vim.cmd.startinsert()
+	local current = vim.api.nvim_get_current_win()
+	local left = center_sidebar("topleft " .. width .. "vnew")
+	vim.api.nvim_set_current_win(current)
+	local right = center_sidebar("botright " .. width .. "vnew")
+	vim.api.nvim_set_current_win(current)
+	centered_wins = { left, right }
 end
 
 local function map(mode, lhs, rhs, desc)
@@ -193,7 +206,7 @@ map("n", "<leader>o", "<cmd>update<CR><cmd>source $MYVIMRC<CR>", "Reload config"
 map("n", "<leader>w", "<cmd>write<CR>", "Write buffer")
 map("n", "<leader>q", "<cmd>quit<CR>", "Quit window")
 map("n", "<leader>z", "zz", "Center cursor line")
-map("n", "<leader>p", "<cmd>NoNeckPain<CR>", "Toggle centered buffer")
+map("n", "<leader>p", toggle_centered_buffer, "Toggle centered buffer")
 map({ "n", "o", "x" }, "ss", function()
 	local ok, flash = pcall(require, "flash")
 	if ok then
@@ -201,19 +214,20 @@ map({ "n", "o", "x" }, "ss", function()
 	end
 end, "Flash jump")
 map("n", "ff", function()
-	require("telescope.builtin").find_files(telescope_picker_opts())
+	MiniPick.builtin.files()
 end, "Find files")
 map("n", "fg", function()
-	require("telescope.builtin").live_grep(telescope_picker_opts())
+	MiniPick.builtin.grep_live()
 end, "Live grep")
 map("n", "<leader>t", toggle_terminal, "Toggle terminal")
+map("n", "lg", lazygit, "Open lazygit")
 map("n", "<leader>lf", vim.lsp.buf.format, "Format buffer")
 map("n", "K", vim.lsp.buf.hover, "Hover")
 map("n", "gd", vim.lsp.buf.definition, "Go to definition")
 map("n", "gr", vim.lsp.buf.references, "List references")
 map("n", "gi", vim.lsp.buf.implementation, "Go to implementation")
 map({ "n", "v" }, "<leader>y", [["+y]], "Yank to system clipboard")
-vim.keymap.set("t", "<Esc><Esc>", [[<C-\><C-n>]])
+
 map("n", "<leader>gh", function()
 	gh_pr({ "list", "--web" })
 end, "Open pull requests")
@@ -224,11 +238,8 @@ end, "Open current branch pull request")
 vim.pack.add({
 	{ src = "https://github.com/catppuccin/nvim" },
 	{ src = "https://github.com/folke/flash.nvim" },
-	{ src = "https://github.com/nvim-mini/mini.pairs" },
+	{ src = "https://github.com/nvim-mini/mini.nvim" },
 	{ src = "https://github.com/neovim/nvim-lspconfig" },
-	{ src = "https://github.com/nvim-lua/plenary.nvim" },
-	{ src = "https://github.com/nvim-telescope/telescope.nvim" },
-	{ src = "https://github.com/shortcuts/no-neck-pain.nvim" },
 	{ src = "https://github.com/Saghen/blink.cmp",             version = "v1.9.1" },
 })
 
@@ -237,9 +248,6 @@ require("catppuccin").setup({
 	integrations = {
 		blink_cmp = true,
 		mini = {
-			enabled = true,
-		},
-		telescope = {
 			enabled = true,
 		},
 	},
@@ -262,28 +270,9 @@ if has_flash then
 	})
 end
 
-local has_no_neck_pain, no_neck_pain = pcall(require, "no-neck-pain")
-if has_no_neck_pain then
-	no_neck_pain.setup({
-		width = 120,
-		buffers = {
-			wo = {
-				statusline = " ",
-			},
-		},
-	})
-end
-
-local actions = require('telescope.actions')
-
-require("telescope").setup({
-	defaults = {
-		sorting_strategy = "ascending",
-		mappings = {
-			i = {
-				['esc'] = actions.close,
-			},
-		},
+require("mini.pick").setup({
+	window = {
+		config = floating_window_config,
 	},
 })
 require("mini.pairs").setup()

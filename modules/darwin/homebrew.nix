@@ -4,9 +4,6 @@
     global.autoUpdate = true;
 
     brews = [
-      "bob"
-      "poppler"
-      "hugo"
       "rtk"
       "pi-coding-agent"
       "bat"
@@ -15,9 +12,7 @@
     ];
 
     casks = [
-      # "codex"
       "spotify"
-      # "visual-studio-code"
     ];
 
     onActivation = {
