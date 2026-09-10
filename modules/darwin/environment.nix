@@ -1,7 +1,7 @@
 { pkgs, ... }:
 {
   environment = {
-    enableAllTerminfo = true;
+    enableAllTerminfo = false;
 
     pathsToLink = [
       "/share/zsh"

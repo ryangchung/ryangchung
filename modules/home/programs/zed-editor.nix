@@ -26,6 +26,34 @@
     ];
 
     userSettings = {
+      "debugger" = {
+        "button" = false;
+      };
+      "auto_install_extensions" = {
+        "astro" = true;
+        "basher" = true;
+        "catpuccin" = true;
+        "csv" = true;
+        "docker-compose" = true;
+        "dockerfile" = true;
+        "git-firefly" = true;
+        "golangci-lint" = true;
+        "graphql" = true;
+        "html" = true;
+        "latex" = true;
+        "lua" = true;
+        "nginx" = true;
+        "nix" = true;
+        "ruby" = true;
+        "scss" = true;
+        "solidity" = true;
+        "sql" = true;
+        "stylint" = true;
+        "svelte" = true;
+        "toml" = true;
+        "unocss" = true;
+        "vue" = true;
+      };
       vim_mode = true;
       "autosave" = "on_focus_change";
       "restore_on_startup" = "last_workspace";
@@ -61,7 +89,25 @@
         };
         "button" = false;
       };
+      "agent" = {
+        "button" = false;
+        "tool_permissions" = {
+          "default" = "allow";
+        };
+        "default_model" = {
+          "model" = "claude-sonnet-4";
+          "provider" = "copilot_chat";
+        };
+        "default_profile" = "ask";
+        "dock" = "right";
+        "model_parameters" = [ ];
+      };
       "edit_predictions" = {
+        "copilot" = {
+          "proxy" = null;
+          "proxy_no_verify" = null;
+        };
+        "enabled_in_text_threads" = false;
         "mode" = "subtle";
       };
       "toolbar" = {
@@ -91,17 +137,38 @@
         dock = "right";
         button = false;
       };
+      "notification_panel" = {
+        "button" = false;
+      };
+      "pane_split_direction_vertical" = "left";
       "project_panel" = {
         dock = "right";
       };
     };
     extensions = [
-      "html"
-      "catpuccin"
-      "dockerfile"
-      "scss"
       "astro"
+      "basher"
+      "catpuccin"
+      "csv"
+      "docker-compose"
+      "dockerfile"
+      "git-firefly"
       "golangci-lint"
+      "graphql"
+      "html"
+      "latex"
+      "lua"
+      "nginx"
+      "nix"
+      "ruby"
+      "scss"
+      "solidity"
+      "sql"
+      "stylint"
+      "svelte"
+      "toml"
+      "unocss"
+      "vue"
     ];
   };
 }
